@@ -6,16 +6,25 @@
 
   var thanks = document.getElementById("thanks");
   var statusEl = document.getElementById("form-status");
+  var stepStatus = document.getElementById("step-status");
   var submitBtn = document.getElementById("submit-btn");
+  var nextBtn = document.getElementById("next-btn");
+  var backBtn = document.getElementById("back-btn");
   var summaryBox = document.getElementById("summary-box");
   var thanksDelivery = document.getElementById("thanks-delivery");
   var copyBtn = document.getElementById("copy-btn");
   var copyStatus = document.getElementById("copy-status");
+  var stepper = document.getElementById("stepper");
+  var stepLabel = document.getElementById("step-label");
+  var step1 = document.getElementById("step-1");
+  var step2 = document.getElementById("step-2");
+  var dot1 = document.getElementById("dot-1");
+  var dot2 = document.getElementById("dot-2");
+  var stepLine = document.getElementById("step-line");
 
-  var REQUIRED_TEXT = ["name", "email", "phone", "age", "weight", "experience", "experienceNote", "injuries", "health", "achieve", "frequency", "source"];
-  var REQUIRED_RADIO = ["contactMethod", "parqChestDoctor", "parqChestPainActivity", "parqChestPainRest", "parqDizziness", "parqJoint", "parqMedication", "parqOther", "format"];
-  var REQUIRED_CHECKS = ["goals", "days", "times"];
-  var PARQ_FIELDS = ["parqChestDoctor", "parqChestPainActivity", "parqChestPainRest", "parqDizziness", "parqJoint", "parqMedication", "parqOther"];
+  var STEP1_TEXT = ["name", "email", "phone", "age", "weight", "experience", "health"];
+  var STEP2_TEXT = ["achieve", "schedule"];
+  var currentStep = 1;
 
   function config() {
     return window.ARON_TRAINING_CONFIG || {};
@@ -28,15 +37,10 @@
     );
   }
 
-  function radioValue(name) {
-    var el = form.querySelector('input[name="' + name + '"]:checked');
-    return el ? el.value : "";
-  }
-
   function fieldValue(name) {
     var el = form.elements[name];
     if (!el) return "";
-    if (el.length && el[0] && (el[0].type === "checkbox" || el[0].type === "radio")) {
+    if (el.length && el[0] && el[0].type === "checkbox") {
       return checkedValues(name).join(", ");
     }
     return String(el.value || "").trim();
@@ -53,21 +57,21 @@
     }
   }
 
-  function clearErrors() {
-    Array.prototype.forEach.call(form.querySelectorAll(".has-error, .invalid"), function (el) {
-      el.classList.remove("has-error", "invalid");
-    });
+  function clearErrors(names) {
+    (names || []).forEach(function (name) { setError(name, false); });
   }
 
   function isValidEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
-  function validate() {
-    clearErrors();
-    var first = null;
+  function firstErrorEl(name) {
+    return form.querySelector('[data-field="' + name + '"]');
+  }
 
-    REQUIRED_TEXT.forEach(function (name) {
+  function validateFields(names, includeGoals) {
+    var first = null;
+    names.forEach(function (name) {
       var value = fieldValue(name);
       var bad = !value;
       if (name === "email" && value && !isValidEmail(value)) bad = true;
@@ -75,35 +79,54 @@
         var n = Number(value);
         if (!Number.isFinite(n) || n < 13 || n > 100) bad = true;
       }
-      if (bad) {
-        setError(name, true);
-        if (!first) first = form.querySelector('[data-field="' + name + '"]');
-      }
+      setError(name, bad);
+      if (bad && !first) first = firstErrorEl(name);
     });
-
-    REQUIRED_RADIO.forEach(function (name) {
-      if (!radioValue(name)) {
-        setError(name, true);
-        if (!first) first = form.querySelector('[data-field="' + name + '"]');
-      }
-    });
-
-    REQUIRED_CHECKS.forEach(function (name) {
-      if (!checkedValues(name).length) {
-        setError(name, true);
-        if (!first) first = form.querySelector('[data-field="' + name + '"]');
-      }
-    });
-
+    if (includeGoals) {
+      var missingGoals = !checkedValues("goals").length;
+      setError("goals", missingGoals);
+      if (missingGoals && !first) first = firstErrorEl("goals");
+    }
     return first;
   }
 
-  function buildSummary() {
-    var parqYes = PARQ_FIELDS.filter(function (name) {
-      return radioValue(name) === "Yes";
-    });
+  function showStep(step) {
+    currentStep = step;
+    var onFirst = step === 1;
+    step1.classList.toggle("is-active", onFirst);
+    step2.classList.toggle("is-active", !onFirst);
+    if (onFirst) {
+      step1.removeAttribute("hidden");
+      step2.setAttribute("hidden", "");
+    } else {
+      step2.removeAttribute("hidden");
+      step1.setAttribute("hidden", "");
+    }
+    if (dot1) {
+      dot1.classList.toggle("is-active", onFirst);
+      dot1.classList.toggle("is-done", !onFirst);
+    }
+    if (dot2) dot2.classList.toggle("is-active", !onFirst);
+    if (stepLine) stepLine.classList.toggle("is-done", !onFirst);
+    if (stepLabel) {
+      stepLabel.textContent = onFirst
+        ? "Step 1 of 2 — About you"
+        : "Step 2 of 2 — Goals and time";
+    }
+    if (stepStatus) {
+      stepStatus.textContent = "";
+      stepStatus.classList.remove("error-text");
+    }
+    var heading = (onFirst ? step1 : step2).querySelector("legend");
+    (onFirst ? step1 : step2).scrollIntoView({ behavior: "smooth", block: "start" });
+    if (heading) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus();
+    }
+  }
 
-    var lines = [
+  function buildSummary() {
+    return [
       "Aron Training — 1-hour trial request",
       "Submitted: " + new Date().toISOString(),
       "",
@@ -111,49 +134,25 @@
       "Name: " + fieldValue("name"),
       "Email: " + fieldValue("email"),
       "Phone / WhatsApp: " + fieldValue("phone"),
-      "Preferred contact: " + fieldValue("contactMethod"),
-      "Best time to contact: " + (fieldValue("contactTime") || "—"),
       "",
       "ABOUT YOU",
       "Age: " + fieldValue("age"),
       "Weight: " + fieldValue("weight"),
-      "Height: " + (fieldValue("height") || "—"),
+      "Exercise experience: " + fieldValue("experience"),
+      "Injuries or health conditions: " + fieldValue("health"),
       "",
-      "TRAINING BACKGROUND",
-      "Experience: " + fieldValue("experience"),
-      "Notes: " + fieldValue("experienceNote"),
-      "",
-      "HEALTH",
-      "Injury history: " + fieldValue("injuries"),
-      "Health conditions / medication / clearance: " + fieldValue("health"),
-      "PAR-Q heart condition (doctor advice): " + radioValue("parqChestDoctor"),
-      "PAR-Q chest pain during activity: " + radioValue("parqChestPainActivity"),
-      "PAR-Q chest pain at rest (past month): " + radioValue("parqChestPainRest"),
-      "PAR-Q dizziness / loss of consciousness: " + radioValue("parqDizziness"),
-      "PAR-Q bone or joint problem: " + radioValue("parqJoint"),
-      "PAR-Q blood pressure or heart medication: " + radioValue("parqMedication"),
-      "PAR-Q other reason not to exercise: " + radioValue("parqOther"),
-      "PAR-Q yes answers: " + (parqYes.length ? parqYes.join(", ") : "None"),
-      "",
-      "GOALS",
+      "GOALS AND TIME",
       "Selected goals: " + fieldValue("goals"),
       "What they want to achieve: " + fieldValue("achieve"),
-      "Event or date: " + (fieldValue("event") || "—"),
-      "Current obstacles: " + (fieldValue("blockers") || "—"),
-      "",
-      "SCHEDULE",
-      "Frequency: " + fieldValue("frequency"),
-      "Preferred days: " + fieldValue("days"),
-      "Preferred times: " + fieldValue("times"),
-      "Session format: " + fieldValue("format"),
-      "How they found Aron: " + fieldValue("source") + (fieldValue("sourceNote") ? " — " + fieldValue("sourceNote") : "")
-    ];
-    return lines.join("\n");
+      "Schedule / format: " + fieldValue("schedule"),
+      "Other note: " + (fieldValue("note") || "—")
+    ].join("\n");
   }
 
   function showThanks(summary, deliveryNote) {
     form.classList.add("is-hidden");
     form.setAttribute("hidden", "");
+    if (stepper) stepper.setAttribute("hidden", "");
     thanks.classList.add("is-visible");
     thanks.removeAttribute("hidden");
     summaryBox.textContent = summary;
@@ -170,14 +169,12 @@
     var name = fieldValue("name");
     var subject = "1-hour trial request from " + name;
     var maxBody = 1800;
-    var body = summary;
-    if (body.length > maxBody) {
-      body = summary.slice(0, maxBody) + "\n\n[Message shortened for email. The full answers were shown on the thank-you screen.]";
-    }
-    var url = "mailto:" + encodeURIComponent(email)
+    var body = summary.length > maxBody
+      ? summary.slice(0, maxBody) + "\n\n[Message shortened for email. The full answers were shown on the thank-you screen.]"
+      : summary;
+    window.location.href = "mailto:" + encodeURIComponent(email)
       + "?subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(body);
-    window.location.href = url;
   }
 
   function postEndpoint(endpoint, summary) {
@@ -201,15 +198,49 @@
     });
   }
 
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      clearErrors(STEP1_TEXT);
+      var first = validateFields(STEP1_TEXT, false);
+      if (first) {
+        if (stepStatus) {
+          stepStatus.textContent = "Please complete the highlighted fields.";
+          stepStatus.classList.add("error-text");
+        }
+        var focusEl = first.querySelector("input, select, textarea");
+        if (focusEl) focusEl.focus();
+        else first.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      showStep(2);
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener("click", function () {
+      showStep(1);
+    });
+  }
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    statusEl.textContent = "";
-    statusEl.classList.remove("error-text");
+    if (statusEl) {
+      statusEl.textContent = "";
+      statusEl.classList.remove("error-text");
+    }
 
-    var firstError = validate();
+    if (currentStep !== 2) {
+      showStep(2);
+      return;
+    }
+
+    clearErrors(STEP2_TEXT.concat(["goals"]));
+    var firstError = validateFields(STEP2_TEXT, true);
     if (firstError) {
-      statusEl.textContent = "Please complete the highlighted fields.";
-      statusEl.classList.add("error-text");
+      if (statusEl) {
+        statusEl.textContent = "Please complete the highlighted fields.";
+        statusEl.classList.add("error-text");
+      }
       var focusEl = firstError.querySelector("input, select, textarea");
       if (focusEl) focusEl.focus();
       else firstError.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -221,8 +252,8 @@
     var email = (cfg.contactEmail || "").trim();
     var endpoint = (cfg.formEndpoint || "").trim();
 
-    submitBtn.disabled = true;
-    statusEl.textContent = "Sending your request…";
+    if (submitBtn) submitBtn.disabled = true;
+    if (statusEl) statusEl.textContent = "Sending your request…";
 
     function finish(note) {
       try {
@@ -242,7 +273,6 @@
             finish("The direct form send could not be completed, so your email app should have opened with a pre-filled message. Please press Send. You can also copy your answers below.");
           } else {
             finish("Your request is ready, but it could not be sent automatically. Please copy your answers below and send them to Aron.");
-            statusEl.classList.add("error-text");
           }
         });
       return;
@@ -260,12 +290,8 @@
   if (copyBtn) {
     copyBtn.addEventListener("click", function () {
       var text = summaryBox.textContent || "";
-      var ok = function () {
-        copyStatus.textContent = "Copied to your clipboard.";
-      };
-      var fail = function () {
-        copyStatus.textContent = "Select the answers above and copy them manually.";
-      };
+      var ok = function () { copyStatus.textContent = "Copied to your clipboard."; };
+      var fail = function () { copyStatus.textContent = "Select the answers above and copy them manually."; };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(ok).catch(fail);
       } else {

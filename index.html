@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -30,8 +31,13 @@
         <p class="eyebrow">Personal training</p>
         <h1 id="hero-title">Train with intent.</h1>
         <p class="lead">Focused one-to-one coaching for weight loss, muscle gain, and better movement. Start with a 1-hour trial built around you — not a generic workout.</p>
+        <p class="hero-tags">
+          <span>Weight loss</span>
+          <span>Muscle gain</span>
+          <span>Functional training</span>
+        </p>
         <div class="hero-actions">
-          <a class="btn" href="trial.html">Book a 1-hour trial</a>
+          <a class="btn btn-pulse" href="trial.html">Book a 1-hour trial</a>
         </div>
       </div>
       <div class="hero-photo">
@@ -41,26 +47,26 @@
 
     <section class="section" id="trial" aria-labelledby="trial-title">
       <div class="wrap">
-        <hr class="kicker">
-        <h2 class="section-title" id="trial-title">The 1-hour trial</h2>
-        <p class="section-lead">The trial is a full training hour, not a sales meeting. Come as you are. Aron will use the time to understand your starting point and work with you.</p>
+        <hr class="kicker reveal">
+        <h2 class="section-title reveal" id="trial-title">The 1-hour trial</h2>
+        <p class="section-lead reveal">The trial is a full training hour, not a sales meeting. Come as you are. Aron will use the time to understand your starting point and work with you.</p>
         <div class="trial-grid">
-          <article class="trial-item">
+          <article class="trial-item reveal" style="--delay: 0ms">
             <span class="num">01</span>
             <h3>Intake review</h3>
             <p>Your goals, training history, injuries, and schedule, so the session is relevant from the first minute.</p>
           </article>
-          <article class="trial-item">
+          <article class="trial-item reveal" style="--delay: 80ms">
             <span class="num">02</span>
             <h3>Movement and baseline</h3>
             <p>A practical look at how you squat, push, pull, and move, scaled to your current experience.</p>
           </article>
-          <article class="trial-item">
+          <article class="trial-item reveal" style="--delay: 160ms">
             <span class="num">03</span>
             <h3>A working session</h3>
             <p>Coaching and training you can feel — technique, effort, and a first taste of the work ahead.</p>
           </article>
-          <article class="trial-item">
+          <article class="trial-item reveal" style="--delay: 240ms">
             <span class="num">04</span>
             <h3>A clear next step</h3>
             <p>Honest advice on what a plan should include if you choose to continue, based on your goal and your week.</p>
@@ -70,31 +76,31 @@
     </section>
 
     <section class="split" aria-labelledby="approach-title">
-      <div class="split-photo">
+      <div class="split-photo reveal reveal-photo">
         <img src="images/aron-back.jpg" width="1200" height="1800" alt="Aron photographed from behind in the studio, showing trained back and shoulders">
       </div>
       <div class="split-copy">
-        <hr class="kicker">
-        <h2 class="section-title" id="approach-title">Coaching that fits the person in front of him.</h2>
-        <p class="section-lead">Every client starts in a different place. Aron trains people who want to lose weight, build muscle, or move with more strength and confidence in daily life. The work is straightforward: sound technique, a plan you can keep, and progress you can measure.</p>
+        <hr class="kicker reveal">
+        <h2 class="section-title reveal" id="approach-title">Coaching that fits the person in front of him.</h2>
+        <p class="section-lead reveal">Every client starts in a different place. Aron trains people who want to lose weight, build muscle, or move with more strength and confidence in daily life. The work is straightforward: sound technique, a plan you can keep, and progress you can measure.</p>
       </div>
     </section>
 
     <section class="section" id="goals" aria-labelledby="goals-title">
       <div class="wrap">
-        <hr class="kicker">
-        <h2 class="section-title" id="goals-title">What we can work toward</h2>
-        <p class="section-lead">Tell Aron what matters most. Many people train for more than one of these at the same time.</p>
+        <hr class="kicker reveal">
+        <h2 class="section-title reveal" id="goals-title">What we can work toward</h2>
+        <p class="section-lead reveal">Tell Aron what matters most. Many people train for more than one of these at the same time.</p>
         <div class="goals-grid">
-          <article class="goal-card">
+          <article class="goal-card reveal" style="--delay: 0ms">
             <h3>Weight loss</h3>
             <p>Training that supports fat loss without burning you out, built around a schedule you can actually keep.</p>
           </article>
-          <article class="goal-card">
+          <article class="goal-card reveal" style="--delay: 100ms">
             <h3>Muscle gain</h3>
             <p>Progressive strength work to build a stronger, more athletic physique, with technique you can trust.</p>
           </article>
-          <article class="goal-card">
+          <article class="goal-card reveal" style="--delay: 200ms">
             <h3>Functional training</h3>
             <p>Strength, control, and mobility for how you actually live, work, and move — not just how you look in the gym.</p>
           </article>
@@ -103,10 +109,10 @@
     </section>
 
     <section class="cta-band" aria-labelledby="cta-title">
-      <div class="wrap">
+      <div class="wrap reveal">
         <h2 id="cta-title">Ready for your first hour?</h2>
-        <p>Fill in a short intake so Aron can prepare your 1-hour trial. It takes a few minutes and helps the session start in the right place.</p>
-        <a class="btn" href="trial.html">Book a 1-hour trial</a>
+        <p>A short two-step intake is enough for Aron to prepare your 1-hour trial and confirm a time.</p>
+        <a class="btn btn-pulse" href="trial.html">Book a 1-hour trial</a>
       </div>
     </section>
   </main>
@@ -117,5 +123,6 @@
       <p>Personal training · 1-hour trial sessions</p>
     </div>
   </footer>
+  <script src="js/main.js"></script>
 </body>
 </html>

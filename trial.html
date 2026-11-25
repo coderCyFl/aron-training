@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Book a 1-hour trial — Aron Training</title>
-  <meta name="description" content="Request a 1-hour trial session with Aron Training. Tell us about your background, goals, and schedule.">
+  <meta name="description" content="Request a 1-hour trial session with Aron Training. A short two-step intake is all it takes.">
   <meta name="theme-color" content="#0b0b0b">
   <meta property="og:title" content="Book a 1-hour trial — Aron Training">
-  <meta property="og:description" content="Request a 1-hour trial session and complete a short intake survey.">
+  <meta property="og:description" content="Request a 1-hour trial session in two short steps.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://codercyfl.github.io/aron-training/trial.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -27,253 +27,106 @@
     <div class="wrap page-header">
       <hr class="kicker">
       <h1 class="page-title">Book a 1-hour trial</h1>
-      <p class="form-note">This short intake helps Aron prepare your session. Please answer honestly — there are no wrong starting points.</p>
-      <p class="required-legend">Fields marked <span class="req">*</span> are required.</p>
+      <p class="form-note">Two short steps. Tell Aron a little about yourself, then your goal and when you can train.</p>
+    </div>
+
+    <div class="wrap stepper" id="stepper" aria-hidden="false">
+      <div class="step-track">
+        <span class="step-dot is-active" id="dot-1">1</span>
+        <span class="step-line" id="step-line"></span>
+        <span class="step-dot" id="dot-2">2</span>
+      </div>
+      <p class="step-label" id="step-label">Step 1 of 2 — About you</p>
     </div>
 
     <form class="wrap trial-form" id="trial-form" novalidate>
-      <fieldset class="form-section">
-        <legend>Your contact details</legend>
-        <div class="field" data-field="name">
-          <label for="name">Full name <span class="req">*</span></label>
-          <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
-          <p class="error" data-error-for="name">Please enter your full name.</p>
-        </div>
-        <div class="field-row">
-          <div class="field" data-field="email">
-            <label for="email">Email <span class="req">*</span></label>
-            <input id="email" name="email" type="email" autocomplete="email" required maxlength="200" inputmode="email">
-            <p class="error" data-error-for="email">Please enter a valid email address.</p>
+      <div class="form-step is-active" data-step="1" id="step-1">
+        <fieldset class="form-section">
+          <legend>About you</legend>
+          <p class="required-legend">Fields marked <span class="req">*</span> are required.</p>
+          <div class="field" data-field="name">
+            <label for="name">Full name <span class="req">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <p class="error" data-error-for="name">Please enter your full name.</p>
           </div>
-          <div class="field" data-field="phone">
-            <label for="phone">Phone or WhatsApp <span class="req">*</span></label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" inputmode="tel">
-            <p class="error" data-error-for="phone">Please enter a phone or WhatsApp number.</p>
-          </div>
-        </div>
-        <div class="field" data-field="contactMethod">
-          <span class="group-label" id="contact-method-label">Best way to reach you <span class="req">*</span></span>
-          <div class="choice-list" role="group" aria-labelledby="contact-method-label">
-            <label class="choice"><input type="radio" name="contactMethod" value="WhatsApp" required> WhatsApp</label>
-            <label class="choice"><input type="radio" name="contactMethod" value="Phone call"> Phone call</label>
-            <label class="choice"><input type="radio" name="contactMethod" value="Email"> Email</label>
-          </div>
-          <p class="error" data-error-for="contactMethod">Please choose a preferred contact method.</p>
-        </div>
-        <div class="field" data-field="contactTime">
-          <label for="contactTime">Best time to contact you <span class="optional">(optional)</span></label>
-          <input id="contactTime" name="contactTime" type="text" maxlength="120" placeholder="For example, weekday evenings">
-        </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend>About you</legend>
-        <div class="field-row-3">
-          <div class="field" data-field="age">
-            <label for="age">Age <span class="req">*</span></label>
-            <input id="age" name="age" type="number" inputmode="numeric" required min="13" max="100" step="1">
-            <p class="error" data-error-for="age">Please enter your age.</p>
-          </div>
-          <div class="field" data-field="weight">
-            <label for="weight">Current weight <span class="req">*</span></label>
-            <input id="weight" name="weight" type="text" required maxlength="40" placeholder="e.g. 72 kg">
-            <p class="error" data-error-for="weight">Please enter your current weight.</p>
-          </div>
-          <div class="field" data-field="height">
-            <label for="height">Height <span class="optional">(optional)</span></label>
-            <input id="height" name="height" type="text" maxlength="40" placeholder="e.g. 175 cm">
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend>Training background</legend>
-        <div class="field" data-field="experience">
-          <label for="experience">Exercise experience <span class="req">*</span></label>
-          <select id="experience" name="experience" required>
-            <option value="">Select one</option>
-            <option value="Beginner">Beginner — I am new or returning after a long break</option>
-            <option value="Some experience">Some experience — I have trained, but not consistently</option>
-            <option value="Advanced">Advanced — I train regularly and know the basics well</option>
-          </select>
-          <p class="error" data-error-for="experience">Please select your experience level.</p>
-        </div>
-        <div class="field" data-field="experienceNote">
-          <label for="experienceNote">Years of training, or a short note <span class="req">*</span></label>
-          <textarea id="experienceNote" name="experienceNote" required maxlength="500" placeholder="For example, 2 years of gym training, or mostly running and home workouts."></textarea>
-          <p class="error" data-error-for="experienceNote">Please add a short note about your training background.</p>
-        </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend>Health and injuries</legend>
-        <p class="hint">Aron uses this to keep the session safe and useful. It is not a medical diagnosis.</p>
-        <div class="field" data-field="injuries">
-          <label for="injuries">Injury history <span class="req">*</span></label>
-          <textarea id="injuries" name="injuries" required maxlength="800" placeholder="List any current or past injuries. Write “None” if this does not apply."></textarea>
-          <p class="error" data-error-for="injuries">Please describe any injury history, or write “None”.</p>
-        </div>
-        <div class="field" data-field="health">
-          <label for="health">Health conditions, medications, or doctor clearance <span class="req">*</span></label>
-          <textarea id="health" name="health" required maxlength="800" placeholder="Include conditions, medications, or any advice from a doctor. Write “None” if this does not apply."></textarea>
-          <p class="error" data-error-for="health">Please describe any health conditions, or write “None”.</p>
-        </div>
-
-        <p class="group-label" id="parq-label">Health screen <span class="req">*</span></p>
-        <p class="hint">Please answer each question. If you answer yes to any, consider speaking with a doctor before starting a new training programme. You can still submit this request.</p>
-        <div class="parq-list" role="group" aria-labelledby="parq-label">
-          <div class="parq-item field" data-field="parqChestDoctor">
-            <p id="parq1">Has a doctor ever said you have a heart condition and that you should only do physical activity recommended by a doctor?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq1">
-              <label class="choice"><input type="radio" name="parqChestDoctor" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqChestDoctor" value="Yes" required> Yes</label>
+          <div class="field-row">
+            <div class="field" data-field="email">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" required maxlength="200" inputmode="email">
+              <p class="error" data-error-for="email">Please enter a valid email address.</p>
             </div>
-            <p class="error" data-error-for="parqChestDoctor">Please answer this question.</p>
-          </div>
-          <div class="parq-item field" data-field="parqChestPainActivity">
-            <p id="parq2">Do you feel pain in your chest when you do physical activity?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq2">
-              <label class="choice"><input type="radio" name="parqChestPainActivity" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqChestPainActivity" value="Yes" required> Yes</label>
+            <div class="field" data-field="phone">
+              <label for="phone">Phone or WhatsApp <span class="req">*</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" inputmode="tel">
+              <p class="error" data-error-for="phone">Please enter a phone or WhatsApp number.</p>
             </div>
-            <p class="error" data-error-for="parqChestPainActivity">Please answer this question.</p>
           </div>
-          <div class="parq-item field" data-field="parqChestPainRest">
-            <p id="parq3">In the past month, have you had chest pain when you were not doing physical activity?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq3">
-              <label class="choice"><input type="radio" name="parqChestPainRest" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqChestPainRest" value="Yes" required> Yes</label>
+          <div class="field-row">
+            <div class="field" data-field="age">
+              <label for="age">Age <span class="req">*</span></label>
+              <input id="age" name="age" type="number" inputmode="numeric" required min="13" max="100" step="1">
+              <p class="error" data-error-for="age">Please enter your age.</p>
             </div>
-            <p class="error" data-error-for="parqChestPainRest">Please answer this question.</p>
-          </div>
-          <div class="parq-item field" data-field="parqDizziness">
-            <p id="parq4">Do you lose your balance because of dizziness, or do you ever lose consciousness?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq4">
-              <label class="choice"><input type="radio" name="parqDizziness" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqDizziness" value="Yes" required> Yes</label>
+            <div class="field" data-field="weight">
+              <label for="weight">Current weight <span class="req">*</span></label>
+              <input id="weight" name="weight" type="text" required maxlength="40" placeholder="e.g. 72 kg">
+              <p class="error" data-error-for="weight">Please enter your current weight.</p>
             </div>
-            <p class="error" data-error-for="parqDizziness">Please answer this question.</p>
           </div>
-          <div class="parq-item field" data-field="parqJoint">
-            <p id="parq5">Do you have a bone or joint problem that could be made worse by a change in physical activity?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq5">
-              <label class="choice"><input type="radio" name="parqJoint" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqJoint" value="Yes" required> Yes</label>
-            </div>
-            <p class="error" data-error-for="parqJoint">Please answer this question.</p>
+          <div class="field" data-field="experience">
+            <label for="experience">Exercise experience <span class="req">*</span></label>
+            <select id="experience" name="experience" required>
+              <option value="">Select one</option>
+              <option value="Beginner">Beginner — new or returning after a long break</option>
+              <option value="Some experience">Some experience — I have trained, but not consistently</option>
+              <option value="Advanced">Advanced — I train regularly and know the basics well</option>
+            </select>
+            <p class="error" data-error-for="experience">Please select your experience level.</p>
           </div>
-          <div class="parq-item field" data-field="parqMedication">
-            <p id="parq6">Is your doctor currently prescribing medication for a blood pressure or heart condition?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq6">
-              <label class="choice"><input type="radio" name="parqMedication" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqMedication" value="Yes" required> Yes</label>
-            </div>
-            <p class="error" data-error-for="parqMedication">Please answer this question.</p>
+          <div class="field" data-field="health">
+            <label for="health">Injuries or health conditions <span class="req">*</span></label>
+            <textarea id="health" name="health" required maxlength="600" placeholder="Anything Aron should know before the session, including injuries or medications. Write “None” if this does not apply."></textarea>
+            <p class="error" data-error-for="health">Please add a short note, or write “None”.</p>
           </div>
-          <div class="parq-item field" data-field="parqOther">
-            <p id="parq7">Do you know of any other reason why you should not do physical activity?</p>
-            <div class="choice-list" role="radiogroup" aria-labelledby="parq7">
-              <label class="choice"><input type="radio" name="parqOther" value="No" required> No</label>
-              <label class="choice"><input type="radio" name="parqOther" value="Yes" required> Yes</label>
-            </div>
-            <p class="error" data-error-for="parqOther">Please answer this question.</p>
-          </div>
+        </fieldset>
+        <div class="form-actions">
+          <button class="btn" type="button" id="next-btn">Continue to goals</button>
+          <p class="form-status" id="step-status" role="status" aria-live="polite"></p>
         </div>
-      </fieldset>
+      </div>
 
-      <fieldset class="form-section">
-        <legend>Your goals</legend>
-        <div class="field" data-field="goals">
-          <span class="group-label" id="goals-label">What do you want to work on? <span class="req">*</span> <span class="optional">Choose all that apply</span></span>
-          <div class="choice-list stack" role="group" aria-labelledby="goals-label">
-            <label class="choice"><input type="checkbox" name="goals" value="Weight loss"> Weight loss</label>
-            <label class="choice"><input type="checkbox" name="goals" value="Muscle gain"> Muscle gain</label>
-            <label class="choice"><input type="checkbox" name="goals" value="Functional training"> Functional training</label>
+      <div class="form-step" data-step="2" id="step-2" hidden>
+        <fieldset class="form-section">
+          <legend>Goals and time</legend>
+          <div class="field" data-field="goals">
+            <span class="group-label" id="goals-label">What do you want to work on? <span class="req">*</span> <span class="optional">Choose all that apply</span></span>
+            <div class="choice-list stack" role="group" aria-labelledby="goals-label">
+              <label class="choice"><input type="checkbox" name="goals" value="Weight loss"> Weight loss</label>
+              <label class="choice"><input type="checkbox" name="goals" value="Muscle gain"> Muscle gain</label>
+              <label class="choice"><input type="checkbox" name="goals" value="Functional training"> Functional training</label>
+            </div>
+            <p class="error" data-error-for="goals">Please select at least one goal.</p>
           </div>
-          <p class="error" data-error-for="goals">Please select at least one goal.</p>
-        </div>
-        <div class="field" data-field="achieve">
-          <label for="achieve">What do you want to achieve? <span class="req">*</span></label>
-          <textarea id="achieve" name="achieve" required maxlength="800" placeholder="Describe the result you want, in your own words."></textarea>
-          <p class="error" data-error-for="achieve">Please describe what you want to achieve.</p>
-        </div>
-        <div class="field" data-field="event">
-          <label for="event">Any date or event you are training toward? <span class="optional">(optional)</span></label>
-          <input id="event" name="event" type="text" maxlength="200" placeholder="For example, a holiday, a wedding, or no specific date">
-        </div>
-        <div class="field" data-field="blockers">
-          <label for="blockers">What is getting in the way right now? <span class="optional">(optional)</span></label>
-          <textarea id="blockers" name="blockers" maxlength="500" placeholder="Time, consistency, injuries, not knowing where to start — anything useful for Aron to know."></textarea>
-        </div>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <legend>Schedule and session format</legend>
-        <div class="field" data-field="frequency">
-          <label for="frequency">How often can you train each week? <span class="req">*</span></label>
-          <select id="frequency" name="frequency" required>
-            <option value="">Select one</option>
-            <option value="1 session per week">1 session per week</option>
-            <option value="2 sessions per week">2 sessions per week</option>
-            <option value="3 sessions per week">3 sessions per week</option>
-            <option value="4 or more sessions per week">4 or more sessions per week</option>
-            <option value="Not sure yet">Not sure yet</option>
-          </select>
-          <p class="error" data-error-for="frequency">Please tell us how often you can train.</p>
-        </div>
-        <div class="field" data-field="days">
-          <span class="group-label" id="days-label">Preferred days <span class="req">*</span> <span class="optional">Choose all that apply</span></span>
-          <div class="choice-list" role="group" aria-labelledby="days-label">
-            <label class="choice"><input type="checkbox" name="days" value="Monday"> Mon</label>
-            <label class="choice"><input type="checkbox" name="days" value="Tuesday"> Tue</label>
-            <label class="choice"><input type="checkbox" name="days" value="Wednesday"> Wed</label>
-            <label class="choice"><input type="checkbox" name="days" value="Thursday"> Thu</label>
-            <label class="choice"><input type="checkbox" name="days" value="Friday"> Fri</label>
-            <label class="choice"><input type="checkbox" name="days" value="Saturday"> Sat</label>
-            <label class="choice"><input type="checkbox" name="days" value="Sunday"> Sun</label>
+          <div class="field" data-field="achieve">
+            <label for="achieve">What do you want to achieve? <span class="req">*</span></label>
+            <textarea id="achieve" name="achieve" required maxlength="500" placeholder="A short note is enough — the result you want from training."></textarea>
+            <p class="error" data-error-for="achieve">Please describe what you want to achieve.</p>
           </div>
-          <p class="error" data-error-for="days">Please select at least one preferred day.</p>
-        </div>
-        <div class="field" data-field="times">
-          <span class="group-label" id="times-label">Preferred times <span class="req">*</span> <span class="optional">Choose all that apply</span></span>
-          <div class="choice-list" role="group" aria-labelledby="times-label">
-            <label class="choice"><input type="checkbox" name="times" value="Mornings"> Mornings</label>
-            <label class="choice"><input type="checkbox" name="times" value="Midday"> Midday</label>
-            <label class="choice"><input type="checkbox" name="times" value="Evenings"> Evenings</label>
-            <label class="choice"><input type="checkbox" name="times" value="Weekends"> Weekends</label>
-            <label class="choice"><input type="checkbox" name="times" value="Flexible"> Flexible</label>
+          <div class="field" data-field="schedule">
+            <label for="schedule">When can you train, and would you prefer in person or online? <span class="req">*</span></label>
+            <textarea id="schedule" name="schedule" required maxlength="400" placeholder="e.g. weekday evenings, in person, or Saturday mornings online."></textarea>
+            <p class="error" data-error-for="schedule">Please tell us when you can train, and your preferred format.</p>
           </div>
-          <p class="error" data-error-for="times">Please select at least one preferred time.</p>
-        </div>
-        <div class="field" data-field="format">
-          <span class="group-label" id="format-label">Session format <span class="req">*</span></span>
-          <div class="choice-list" role="radiogroup" aria-labelledby="format-label">
-            <label class="choice"><input type="radio" name="format" value="In person" required> In person</label>
-            <label class="choice"><input type="radio" name="format" value="Online" required> Online</label>
-            <label class="choice"><input type="radio" name="format" value="Either is fine" required> Either is fine</label>
+          <div class="field" data-field="note">
+            <label for="note">Anything else Aron should know? <span class="optional">(optional)</span></label>
+            <textarea id="note" name="note" maxlength="400"></textarea>
           </div>
-          <p class="error" data-error-for="format">Please choose a session format.</p>
+        </fieldset>
+        <div class="form-actions">
+          <button class="btn btn-ghost" type="button" id="back-btn">Back</button>
+          <button class="btn" type="submit" id="submit-btn">Request a 1-hour trial</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </div>
-        <div class="field" data-field="source">
-          <label for="source">How did you hear about Aron? <span class="req">*</span></label>
-          <select id="source" name="source" required>
-            <option value="">Select one</option>
-            <option value="Friend or referral">Friend or referral</option>
-            <option value="Social media">Social media</option>
-            <option value="Search">Search</option>
-            <option value="Other">Other</option>
-          </select>
-          <p class="error" data-error-for="source">Please tell us how you found Aron Training.</p>
-        </div>
-        <div class="field" data-field="sourceNote">
-          <label for="sourceNote">Anything to add about how you found Aron? <span class="optional">(optional)</span></label>
-          <input id="sourceNote" name="sourceNote" type="text" maxlength="200">
-        </div>
-      </fieldset>
-
-      <div class="form-actions">
-        <button class="btn" type="submit" id="submit-btn">Request a 1-hour trial</button>
-        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </div>
     </form>
 

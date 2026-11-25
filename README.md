@@ -1,6 +1,6 @@
 # Aron Training
 
-Public website for Aron Training, a personal training practice. New clients can request a 1-hour trial session and complete a short intake survey.
+Public website for Aron Training, a personal training practice. New clients can request a 1-hour trial session and complete a short two-step intake.
 
 ## Live site
 
