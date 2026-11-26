@@ -8,7 +8,7 @@ https://codercyfl.github.io/aron-training/
 
 Trial form: https://codercyfl.github.io/aron-training/trial.html
 
-The homepage includes programs, an about section, a short explainer of how the trial works, and a compact FAQ. The trial form is two steps and is unchanged in its fields.
+The homepage includes programs, an about section, studio portraits, a competition-result section, a short explainer of how the trial works, and a compact FAQ. The trial form is two steps and is unchanged in its fields.
 
 ## Preview locally
 
@@ -56,4 +56,4 @@ A workflow in `.github/workflows/pages.yml` deploys the repository root to Pages
 
 ## Photos
 
-Studio portraits of Aron are in `images/aron-front.jpg` and `images/aron-back.jpg`.
+Photos of Aron are in `images/`: `aron-front.jpg`, `aron-back.jpg`, `aron-studio-jeans.jpg`, `aron-studio-action.jpg`, and the competition photo `aron-wnbf-macau-2026.jpg`.
