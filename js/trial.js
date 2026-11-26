@@ -22,6 +22,21 @@
   var dot2 = document.getElementById("dot-2");
   var stepLine = document.getElementById("step-line");
 
+
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var goalMap = {
+      "weight-loss": "Weight loss",
+      "muscle-gain": "Muscle gain",
+      "functional": "Functional training"
+    };
+    var preset = goalMap[params.get("goal") || ""];
+    if (preset) {
+      var box = form.querySelector('input[name="goals"][value="' + preset + '"]');
+      if (box) box.checked = true;
+    }
+  } catch (err) {}
+
   var STEP1_TEXT = ["name", "email", "phone", "age", "weight", "experience", "health"];
   var STEP2_TEXT = ["achieve", "schedule"];
   var currentStep = 1;

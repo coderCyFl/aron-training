@@ -4,17 +4,40 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found — Aron Training</title>
-  <meta name="theme-color" content="#0b0b0b">
+  <meta name="theme-color" content="#0a0a0a">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <a class="wordmark" href="index.html">Aron Training</a>
-      <a class="header-cta" href="trial.html">Book a 1-hour trial</a>
+      <nav class="desk-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="index.html#about">About</a>
+        <a href="trial.html">Trial</a>
+      </nav>
+      <a class="btn btn-sm header-book" href="trial.html">Book a 1-hour trial</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <nav aria-label="Mobile">
+      <a href="index.html">Home</a>
+      <a href="index.html#programs">Programs</a>
+      <a href="index.html#about">About</a>
+      <a href="trial.html">Trial</a>
+      <a class="btn" href="trial.html">Book a 1-hour trial</a>
+    </nav>
+  </div>
+
   <main class="wrap simple-page">
     <hr class="kicker">
     <h1 class="page-title">This page is not here.</h1>
@@ -24,11 +47,12 @@
       <a class="btn btn-ghost" href="trial.html">Book a 1-hour trial</a>
     </div>
   </main>
+
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <p class="footer-name">Aron Training</p>
-      <p>Personal training · 1-hour trial sessions</p>
     </div>
   </footer>
+  <script src="js/main.js"></script>
 </body>
 </html>

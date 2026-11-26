@@ -6,6 +6,10 @@ Public website for Aron Training, a personal training practice. New clients can 
 
 https://codercyfl.github.io/aron-training/
 
+Trial form: https://codercyfl.github.io/aron-training/trial.html
+
+The homepage includes programs, an about section, a short explainer of how the trial works, and a compact FAQ. The trial form is two steps and is unchanged in its fields.
+
 ## Preview locally
 
 This is a static site with no build step. From this folder:
